@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
+const path = require("path");
 
 let port =8080;
+app.set("view engine", "ejs");
 
+const viewsPath = path.join(__dirname, "views");
 const mongoose = require('mongoose');
 
 let Listing =require("./models/listing.js")
@@ -41,10 +44,21 @@ app.get("/",(req,res)=>{
 
 // index route
 app.get("/listing",async (req,res)=>{
-  const allListing = await Listing.findMany({});
+  const allListing = await Listing.find({});
   console.log(allListing);
-  res.render("index",{allListing});
+  res.render("./listing/index",{allListing});
 })
+
+// show route
+app.get("/listing/:id",async (req,res)=>{
+  let {id} = req.params;
+  let eachListing = await Listing.findById(id); 
+  console.log(eachListing);
+  res.render("./listing/show",{eachListing});
+})
+
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on these ${port}`);
