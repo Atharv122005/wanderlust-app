@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const path = require("path");
+const methodOverride = require('method-override');
+app.use(methodOverride("_method"));
 
 let port =8080;
 app.set("view engine", "ejs");
@@ -63,6 +65,19 @@ app.post("/listing", async (req,res)=>{
   res.redirect("/listing");
 
 
+})
+
+//edit post
+app.get("/listing/:id/edit",async (req,res)=>{
+  let {id} = req.params;
+  let eachListing = await Listing.findById(id); 
+  res.render("./listing/edit",{eachListing});
+})
+
+app.put("/listing/:id",async (req,res)=>{
+  let {id} = req.params;
+  await Listing.findByIdAndUpdate(id,{...req.body.listing});
+  res.redirect("/listing");
 })
 
 
