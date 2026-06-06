@@ -3,14 +3,18 @@ const app = express()
 const path = require("path");
 const methodOverride = require('method-override');
 app.use(methodOverride("_method"));
+let ejsMate = require('ejs-mate');
 
 let port =8080;
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.engine('ejs', ejsMate);
 
 const viewsPath = path.join(__dirname, "views");
 const mongoose = require('mongoose');
+app.use(express.static(path.join(__dirname, "public"))); 
+
 
 let Listing =require("./models/listing.js")
 

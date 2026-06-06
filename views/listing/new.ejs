@@ -1,26 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<% layout('/layouts/boilerplate') -%>
 <body>
     
 <form method="post" action="/listing">
-    <input name="listing[title]" type="text" placeholder="Title">
-    <br> 
-    <input name="listing[description]" type="text" placeholder="Enter description">
-    <br>
-    <input name="listing[image]" type="text" placeholder="Image">
-    <br>
-    <input name="listing[price]" type="number" placeholder="Enter price">
-    <br>
-    <input name="listing[country]" type="text" placeholder="Enter country">
-    <br>
-    <input name="listing[location]" type="text" placeholder="Location">
-    <br><br>
-    <button type="submit">Submit</button>
+    <div>
+        <label for="username" class="form-label">Title</label>
+        <input name="listing[title]" type="text" placeholder="Title">
+    </div>
+    
+    <div>
+        <label for="username" class="form-label">description</label>
+        <input name="listing[description]" type="text" placeholder="Enter description">
+
+    </div>
+
+    <div>
+        <label for="username" class="form-label">Image</label>
+        <input name="listing[image]" type="text" placeholder="Image">
+
+    </div>
+
+    <div>
+          <label for="username" class="form-label">price</label>
+          <input name="listing[price]" type="number" placeholder="Enter price">
+
+    </div>
+
+    <div>
+        <label for="username" class="form-label">country</label>
+        <input name="listing[country]" type="text" placeholder="Enter country">
+
+    </div>
+    <div>
+        <label for="username" class="form-label">Location</label>
+        <input name="listing[location]" type="text" placeholder="Location">
+
+    </div>
+    
+   <button type="button" class="btn btn-primary btn-lg">Add</button>
 </form>
 </body>
-</html>
