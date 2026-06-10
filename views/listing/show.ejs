@@ -1,12 +1,57 @@
 <% layout('/layouts/boilerplate') -%>
-<h2>Info</h2>
 
-<ul>
-    <li>ID: <%= data._id %></li>
-    <li>Title: <%= data.title %></li>
-    <li>Price: &#8377;<%= data.price.toLocaleString("en-IN") %></li>
-    <li>Location: <%= data.location %></li>
-    <li>Country: <%= data.country %></li>
-</ul>
-<button><a href="http://localhost:8080/listing/<%=data._id%>/edit">edit</a></button>
-</body>
+    <div class="row">
+
+        <div class="col-8 offset-3 ">
+            <h2>Listing Details</h2>
+        </div><br>
+
+        <div class="col-6 offset-3">
+            <img src="<%=data.image%>" class="card-img-top show-img" alt="...">
+            <div class="card-body">
+                <p class="card-text">
+                    <b><%= data.title %></b><br>
+                    <%= data.description %><br>
+                    &#8377;<%= data.price.toLocaleString("en-IN") %><br>
+                    <%= data.location %><br>
+                    <%= data.country %><br>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="btns">
+        <a href="http://localhost:8080/listing/<%=data._id%>/edit" class="btn btn-dark redButton offset-3">edit</a>
+        <button class=" btn btn-dark ">Delete</button>
+    </div>
+    <hr>
+
+    <div class="col-8 offset-3">
+        <h4>Leave a Review</h4>
+        <form action="/listing/<%=data._id%>/review" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3 mt-3">
+                <label for="rating">Rating</label>
+                <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range">
+            </div>
+            <div>
+                <label for="comment" >Comments</label>
+                <textarea
+                name="review[comment]",
+                id="comment",
+                cols="30",
+                rows="5",
+                class="form-control "
+                required></textarea>
+
+                <div class="invalid-feedback">
+                    please add some comment for review
+                </div>
+            
+
+            </div>
+            <br>
+            <button class="btn btn-outline-dark">Submit</button>
+        </form>
+
+    </div>
+    </body>

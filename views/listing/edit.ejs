@@ -1,26 +1,62 @@
 <% layout('/layouts/boilerplate') -%>
-<body>
-    <form method="post" action="/listing/<%=eachListing._id%>?_method=PUT">
-        <input name="listing[title]" type="text" value="<%=eachListing.title%>" style="width: 400px; height: 40px;">
-        <br><br>
 
-        <input name="listing[description]" type="text" value="<%=eachListing.description%>"
-            style="width: 400px; height: 40px;">
-        <br><br>
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <h3>Edit Listing</h3>
 
-        <input name="listing[image]" type="text" value="<%=eachListing.image%>" style="width: 400px; height: 40px;">
-        <br><br>
+            <form method="post" action="/listing/<%= eachListing._id %>?_method=PUT" class="needs-validation"
+                novalidate>
 
-        <input name="listing[price]" type="number" value="<%=eachListing.price%>" style="width: 400px; height: 40px;">
-        <br> <br><br>
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input name="listing[title]" type="text" value="<%= eachListing.title %>" class="form-control"
+                        required>
+                    <div class="invalid-feedback">Please enter a title.</div>
+                </div>
 
-        <input name="listing[country]" type="text" value="<%=eachListing.country%>" style="width: 400px; height: 40px;">
-        <br> <br><br>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <input name="listing[description]" type="text" value="<%= eachListing.description %>"
+                        class="form-control" required>
+                    <div class="invalid-feedback">Please enter a description.</div>
+                </div>
 
-        <input name="listing[location]" type="text" value="<%=eachListing.location%>"
-            style="width: 400px; height: 40px;">
-        <br><br>
-        <button type="submit">Submit</button>
-    </form>
+                <div class="mb-3">
+                    <label class="form-label">Image URL</label>
+                    <input name="listing[image]" type="text" value="<%= eachListing.image %>" class="form-control"
+                        required>
+                    <div class="invalid-feedback">Please enter an image URL.</div>
+                </div>
 
-</body>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Price</label>
+                        <input name="listing[price]" type="number" value="<%= eachListing.price %>" class="form-control"
+                            required>
+                        <div class="invalid-feedback">Please enter a price.</div>
+                    </div>
+
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">Country</label>
+                        <input name="listing[country]" type="text" value="<%= eachListing.country %>"
+                            class="form-control" required>
+                        <div class="invalid-feedback">Please enter a country.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Location</label>
+                    <input name="listing[location]" type="text" value="<%= eachListing.location %>" class="form-control"
+                        required>
+                    <div class="invalid-feedback">Please enter a location.</div>
+                </div>
+                <br>
+
+                <button type="submit" class="btn btn-dark redButton">
+                    Update Listing
+                </button>
+                <br><br><br>
+
+            </form>
+        </div>
+    </div>

@@ -1,41 +1,66 @@
 <% layout('/layouts/boilerplate') -%>
-<body>
-    
-<form method="post" action="/listing">
-    <div>
-        <label for="username" class="form-label">Title</label>
-        <input name="listing[title]" type="text" placeholder="Title">
-    </div>
-    
-    <div>
-        <label for="username" class="form-label">description</label>
-        <input name="listing[description]" type="text" placeholder="Enter description">
 
-    </div>
+    <body>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <br>
+                <h2>Create New Listing</h2>
+                <br>
+                <form method="post" action="/listing" novalidate class="needs-validation">
 
-    <div>
-        <label for="username" class="form-label">Image</label>
-        <input name="listing[image]" type="text" placeholder="Image">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input name="listing[title]" type="text" placeholder="Title" class="form-control" required>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter a title.</div>
 
-    </div>
+                    </div>
 
-    <div>
-          <label for="username" class="form-label">price</label>
-          <input name="listing[price]" type="number" placeholder="Enter price">
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input name="listing[description]" type="text" placeholder="Enter description"
+                            class="form-control" required>
+                        <div class="invalid-feedback">Please enter a description.</div>
+                    </div>
 
-    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input name="listing[image]" type="text" placeholder="Image URL" class="form-control">
+                    </div>
+                    <div class="row">
 
-    <div>
-        <label for="username" class="form-label">country</label>
-        <input name="listing[country]" type="text" placeholder="Enter country">
+                        <div class="mb-3 col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <input name="listing[price]"  placeholder="Enter price" class="form-control"
+                                required>
+                            <div class="invalid-feedback">Please enter a price.</div>
+                        </div>
 
-    </div>
-    <div>
-        <label for="username" class="form-label">Location</label>
-        <input name="listing[location]" type="text" placeholder="Location">
 
-    </div>
-    
-   <button type="button" class="btn btn-primary btn-lg">Add</button>
-</form>
-</body>
+
+                        <div class="mb-3 col-md-8">
+                            <label for="country" class="form-label">Country</label>
+                            <input name="listing[country]" type="text" placeholder="Enter country" class="form-control"
+                                required>
+                            <div class="invalid-feedback">Please enter a country.</div>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input name="listing[location]" type="text" placeholder="Location" class="form-control"
+                            required>
+                        <div class="invalid-feedback">Please enter a location.</div>
+                    </div>
+                    <br>
+
+                    <button type="submit" class="btn btn-dark redButton">
+                        Add
+                    </button>
+                    <br><br><br>
+
+                </form>
+            </div>
+        </div>
+    </body>

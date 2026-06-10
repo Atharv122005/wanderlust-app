@@ -1,6 +1,15 @@
 body{
     font-family: "Plus Jakarta Sans", sans-serif;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
 }
+
+
+.container{
+    flex: 1;
+}
+
 
 .navbar{
     height:5rem;
@@ -11,7 +20,7 @@ body{
 }
 
 .fa-compass{
-    color: red;
+    color: #ff0000;
     font-size: 2rem;
 }
 
@@ -87,3 +96,15 @@ body{
     opacity: 0.2;
     background-color: #222222;
 }
+
+.redButton{
+    background-color:#ff0000;
+    border:none !important;
+}
+
+/* show page */
+.show-img{
+    height:30vh;
+}
+
+
