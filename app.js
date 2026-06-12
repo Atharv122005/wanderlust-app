@@ -20,7 +20,7 @@ let Listing =require("./models/listing.js")
 const Review = require("./models/review");
 let wrapAsync = require("./utils/wrapAsync.js");
 let ExpressError = require("./utils/ExpressError.js");
-const {listingSchema} = require("./schema.js");
+const {listingSchema ,reviewSchema} = require("./schema.js");
 
 main()
 .then((res)=>{
@@ -52,14 +52,24 @@ app.get("/",(req,res)=>{
 
 const validateListing =(req,res,next)=>{
   let {error} = listingSchema.validate(req.body);
-  console.log(error);
+  // console.log(error);
   if(error){
     let errMsg = error.details.map(el=>el.message);
     throw new ExpressError(400, error.message);
   }else{
     next();
   }
+}
 
+const validateReview =(req,res,next)=>{
+  let {error} = reviewSchema.validate(req.body);
+  // console.log(error);
+  if(error){
+    let errMsg = error.details.map(el=>el.message);
+    throw new ExpressError(400, error.message);
+  }else{
+    next();
+  }
 }
 
 // index route
@@ -90,23 +100,22 @@ app.post("/listing",
 
 // Review
 // post route
-app.post("/listing/:id/review",async (req,res)=>{
+app.post("/listing/:id/review", 
+  validateReview,
+  wrapAsync(async (req,res)=>{
   let listing = await Listing.findById(req.params.id);
   let newListing = new Review(req.body.review);
   await listing.reviews.push(newListing);
-
   console.log(newListing);
-
   await newListing.save();
   await listing.save();
-  resd.send("review is working")
-
-
-})
+  res.redirect(`/listing/${listing._id}`);
+}))
 
 //edit post
 app.get("/listing/:id/edit",wrapAsync(async (req,res)=>{
   let {id} = req.params;
+  // console.log(id);
   let eachListing = await Listing.findById(id); 
   res.render("./listing/edit",{eachListing});
 }))
@@ -119,13 +128,21 @@ app.put("/listing/:id",
   res.redirect("/listing");
 }))
 
+// Delete Review Route
+app.delete("/listing/:id/review/:reviewId",wrapAsync(async(req,res,)=>{
+  let {id ,reviewId} = req.params;
+  await Listing.findByIdAndUpdate(id , {$pull:{reviews:reviewId}});
+  await Review.findByIdAndDelete(reviewId);
+  res.redirect(`/listing/${id}`);
+}))
+
 
 
 // show route
 app.get("/listing/:id",wrapAsync(async (req,res)=>{
   let {id} = req.params;
-  let eachListing = await Listing.findById(id); 
-  // console.log(eachListing);
+  let eachListing = await Listing.findById(id). populate('reviews'); 
+  console.log(eachListing);
   res.render("./listing/show",{data :eachListing});
 }))
 
@@ -136,7 +153,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   let {statusCode = 500 , message="something went wrong"} = err;
-  // res.status(statusCode).send(message);
+  res.status(statusCode);
   res.render("Error.ejs",{message})
 });
 
