@@ -41,6 +41,7 @@ router.post("/",
   wrapAsync(async (req,res,next)=>{
   const newListing =new Listing(req.body.listing);
   await newListing.save();
+  req.flash('success', 'new listing is created !')
   // console.log(newListing);
   res.redirect("/listing");
 }))
@@ -60,6 +61,7 @@ router.put("/:id",
   wrapAsync(async (req,res)=>{
   let {id} = req.params;
   await Listing.findByIdAndUpdate(id,{...req.body.listing});
+  req.flash("success", "Listing updated successfully!");
   res.redirect("/listing");
 }))
 

@@ -2,7 +2,9 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose');
 const path = require("path");
-let ejsMate = require('ejs-mate');
+const ejsMate = require('ejs-mate');
+const session = require('express-session')
+const flash = require('connect-flash');
 
 const methodOverride = require('method-override');
 app.use(methodOverride("_method"));
@@ -20,8 +22,24 @@ app.use(express.static(path.join(__dirname, "public")));
 const listing = require("./routes/listing.js");
 const review = require("./routes/review.js")
 
+const sessionOption ={
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}
+
+app.use(session(sessionOption))
+app.use(flash());
+
+app.use((req,res,next)=>{
+  res.locals.success = req.flash("success");
+  next();
+})
+
+
 app.use('/listing', listing);
 app.use("/listing/:id/review" ,review)
+
 
 
 main()
@@ -32,7 +50,6 @@ main()
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/WanderLust');
 }
-
 app.get("/",(req,res)=>{
     res.send("working")
 })
