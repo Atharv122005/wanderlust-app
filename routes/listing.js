@@ -5,6 +5,7 @@ let Listing =require("../models/listing.js")
 let wrapAsync = require("../utils/wrapAsync.js");
 let ExpressError = require("../utils/ExpressError.js");
 const {listingSchema } = require("../schema.js");
+const {isLoggedIn} = require("../middleware.js");
 
 
 
@@ -31,7 +32,9 @@ router.get("/",
 
 
 // New Route
-router.get("/new", (req,res)=>{
+router.get("/new",
+  isLoggedIn,
+  (req,res)=>{
   res.render("./listing/new")
   
 })
@@ -49,7 +52,9 @@ router.post("/",
 
 
 //edit post
-router.get("/:id/edit",wrapAsync(async (req,res)=>{
+router.get("/:id/edit",
+  isLoggedIn,
+  wrapAsync(async (req,res)=>{
   let {id} = req.params;
   // console.log(id);
   let eachListing = await Listing.findById(id); 
