@@ -8,17 +8,25 @@
 
         <div class="col-6 offset-3">
             <img src="<%=data.image%>" class="card-img-top show-img" alt="...">
-            <div class="card-body">
-                <p class="card-text">
-                    <b>
-                        <%= data.title %>
-                    </b><br>
-                    <%= data.description %><br>
-                        &#8377;<%= data.price.toLocaleString("en-IN") %><br>
-                            <%= data.location %><br>
-                                <%= data.country %><br>
-                </p>
-            </div>
+            
+
+                <div class="card-body">
+                    <p class="card-text mb-2"><b>
+                            <%= data.owner.username %>
+                        </b></p>
+                    <p class="card-text mb-2">
+                        <%= data.description %>
+                    </p>
+                    <p class="card-text mb-2">&#8377;<%= data.price.toLocaleString("en-IN") %>
+                    </p>
+                    <p class="card-text mb-2">
+                        <%= data.location %>
+                    </p>
+                    <p class="card-text mb-2">
+                        <%= data.country %>
+                    </p>
+                </div>
+           
         </div>
     </div>
 
@@ -47,29 +55,33 @@
             <br>
             <button class="btn btn-outline-dark">Submit</button>
         </form>
-    
+
 
 
 
 
         <p><b>All Review</b></p>
-       <div class="row">
-        <% for(review of data.reviews){%>
-        <div class="card col-5 ms-3  mb-4" >
-            <div class="card-body">
-                <h5 class="card-title">Atharv Patil</h5>
-                <p class="card-text"><%= review.comment%></p>
-                <p class="card-text"><%= review.rating%> stars</p>
-            </div>
+        <div class="row">
+            <% for(review of data.reviews){%>
+                <div class="card col-5 ms-3  mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Atharv Patil</h5>
+                        <p class="card-text">
+                            <%= review.comment%>
+                        </p>
+                        <p class="card-text">
+                            <%= review.rating%> stars
+                        </p>
+                    </div>
                     <form action="/listing/<%=data._id%>/review/<%=review._id%>?_method=DELETE" method="POST">
-            <button class=" btn btn-sm btn-dark mb-3">delete</button>
+                        <button class=" btn btn-sm btn-dark mb-3">delete</button>
 
-        </form>
-        </div>
+                    </form>
+                </div>
 
-        <%}%>
+                <%}%>
         </div>
     </div>
 
-</div>
+    </div>
     </body>

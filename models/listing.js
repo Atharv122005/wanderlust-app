@@ -2,28 +2,33 @@
 
 const mongoose = require('mongoose');
 const listingSchema = new mongoose.Schema({
-    title:{
-        type:String,
-        required:true,
+    title: {
+        type: String,
+        required: true,
     },
-    description:String,
-    image:{
-        type:String,
-         default: "https://www.istockphoto.com/stock-photos/nature-and-landscapes",
-        set:(v)=>
-            v===""?"https://www.istockphoto.com/stock-photos/nature-and-landscapes":v,
+    description: String,
+    image: {
+        type: String,
+        default: "https://www.istockphoto.com/stock-photos/nature-and-landscapes",
+        set: (v) =>
+            v === "" ? "https://www.istockphoto.com/stock-photos/nature-and-landscapes" : v,
     },
-    price:Number,
-    location:String,
-    country:String,
-    reviews:[
+    price: Number,
+    location: String,
+    country: String,
+    reviews: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Review"
         }
-    ]
+    ],
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }
+
 });
 
-const Listing = mongoose.model("Listing",listingSchema);
+const Listing = mongoose.model("Listing", listingSchema);
 
 module.exports = Listing;
