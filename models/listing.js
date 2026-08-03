@@ -8,10 +8,8 @@ const listingSchema = new mongoose.Schema({
     },
     description: String,
     image: {
-        type: String,
-        default: "https://www.istockphoto.com/stock-photos/nature-and-landscapes",
-        set: (v) =>
-            v === "" ? "https://www.istockphoto.com/stock-photos/nature-and-landscapes" : v,
+        url:String,
+        filename:String,
     },
     price: Number,
     location: String,
