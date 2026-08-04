@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose');
 const listingSchema = new mongoose.Schema({
     title: {
@@ -8,8 +6,8 @@ const listingSchema = new mongoose.Schema({
     },
     description: String,
     image: {
-        url:String,
-        filename:String,
+        url: String,
+        filename: String,
     },
     price: Number,
     location: String,
@@ -23,8 +21,16 @@ const listingSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+    },
+    geometry: {        
+        type: {
+            type: String,
+            enum: ['Point'],
+        },
+        coordinates: {
+            type: [Number],
+        }
     }
-
 });
 
 const Listing = mongoose.model("Listing", listingSchema);
